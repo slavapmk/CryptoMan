@@ -1,0 +1,56 @@
+import { VerticalBox, HorizontalBox, Button, GroupBox, TextEdit, LineEdit } from "std-widgets.slint";
+export component AppWindow inherits Window {
+    width: 400px;
+    height: 150px;
+    title: "CryptoMan";
+    icon: @image-url("logo.png");
+    default-font-size: 16px;
+    no-frame: true;
+    forward-focus: te1;
+
+    property <int> count: 0;
+    callback button-ok(string);
+    callback button-exit();
+
+    te1 := LineEdit {
+        x: 10px;
+        y: 10px;
+        width: 380px;
+        height: 60px;
+        placeholder-text: "Пароль";
+        padding: 10px;
+        enabled: true;
+        input-type: password;
+
+        accepted => {
+            ex.enabled = false;
+            ok.enabled = false;
+            root.button-ok(te1.text);
+        }
+    }
+
+    ex := Button {
+        x: 10px;
+        y: 100px;
+        height: 40px;
+        width: 110px;
+        text: "Отмена";
+        clicked => {
+            root.button-exit()
+        }
+    }
+
+    ok := Button {
+        x: 280px;
+        y: 100px;
+        height: 40px;
+        width: 110px;
+        text: "OK";
+        clicked => {
+            ex.enabled = false;
+            ok.enabled = false;
+            root.button-ok(te1.text);
+        }
+        primary: true;
+    }
+}

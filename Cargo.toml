@@ -1,0 +1,35 @@
+[package]
+name = "CryptoMan"
+version = "1.1.0"
+edition = "2021"
+build = "build.rs"
+
+[dependencies]
+slint = "1.8.0"
+winapi = "0.3.9"
+
+[build-dependencies]
+slint-build = "1.8.0"
+winres = "0.1.12"
+
+[package.metadata.winres]
+ProductName = "CryptoMan"
+FileDescription = "VeraCrypt Automatic Manager"
+ProductVersion = "1.1.0.0"
+OriginalFilename = "CryptoMan.exe"
+LegalCopyright = "@slavapmk 2024"
+
+[[bin]]
+name = "CryptoMan"
+path = "src/main.rs"
+required-features = ["windows_subsystem"]
+
+[features]
+windows_subsystem = []
+
+[profile.release]
+opt-level = 's'     # Optimize for size
+lto = true          # Enable link-time optimization
+codegen-units = 1   # Reduce number of codegen units to increase optimizations
+panic = 'abort'     # Abort on panic
+strip = true        # Strip symbols from binary*
